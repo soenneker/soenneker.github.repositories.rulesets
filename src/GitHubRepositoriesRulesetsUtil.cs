@@ -12,6 +12,7 @@ using System;
 using Microsoft.Extensions.Logging;
 using Soenneker.Extensions.HttpResponseMessage;
 using Soenneker.Extensions.Task;
+using Soenneker.Extensions.Object;
 
 namespace Soenneker.GitHub.Repositories.Rulesets;
 
@@ -27,6 +28,23 @@ public class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesetsUtil
         _logger = logger;
         _gitHubHttpClient = gitHubHttpClient;
         _token = config.GetValueStrict<string>("GitHub:Token");
+    }
+
+    public async ValueTask Add(string owner, string name, RepositoryRuleset ruleset, CancellationToken cancellationToken = default)
+    {
+        _logger.LogInformation("Adding ruleset to repo ({owner}/{repo}) branch ('main') ...", owner, name);
+
+        var url = $"repos/{owner}/{name}/rulesets";
+
+        HttpRequestMessage request = CreateGitHubRequest(HttpMethod.Post, url);
+
+        request.Content = ruleset.ToHttpContent();
+
+        HttpClient client = await _gitHubHttpClient.Get(cancellationToken).NoSync();
+
+        HttpResponseMessage response = await client.SendAsync(request, cancellationToken).NoSync();
+
+        response.EnsureSuccessStatusCode();
     }
 
     public async ValueTask<List<RepositoryRuleset>?> GetRulesets(string owner, string name, CancellationToken cancellationToken = default)

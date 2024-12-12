@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Diagnostics.Contracts;
 
 namespace Soenneker.GitHub.Repositories.Rulesets.Abstract;
 
@@ -10,6 +11,8 @@ namespace Soenneker.GitHub.Repositories.Rulesets.Abstract;
 /// </summary>
 public interface IGitHubRepositoriesRulesetsUtil
 {
+    ValueTask Add(string owner, string name, RepositoryRuleset ruleset, CancellationToken cancellationToken = default);
+
     /// <summary>
     /// Retrieves the list of repository rulesets for the specified owner and repository name.
     /// </summary>
@@ -20,6 +23,7 @@ public interface IGitHubRepositoriesRulesetsUtil
     /// A <see cref="ValueTask{TResult}"/> representing the asynchronous operation. The result contains a list of <see cref="RepositoryRuleset"/> 
     /// if rulesets are found, or <c>null</c> if no rulesets are available.
     /// </returns>
+    [Pure]
     ValueTask<List<RepositoryRuleset>?> GetRulesets(string owner, string name, CancellationToken cancellationToken = default);
 
     /// <summary>
