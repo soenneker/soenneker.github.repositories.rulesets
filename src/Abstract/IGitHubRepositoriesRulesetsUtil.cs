@@ -24,7 +24,7 @@ public interface IGitHubRepositoriesRulesetsUtil
     /// if rulesets are found, or <c>null</c> if no rulesets are available.
     /// </returns>
     [Pure]
-    ValueTask<List<RepositoryRuleset>?> GetRulesets(string owner, string name, CancellationToken cancellationToken = default);
+    ValueTask<List<RepositoryRuleset>?> GetAll(string owner, string name, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes all rulesets for the specified owner and repository name.
@@ -35,7 +35,7 @@ public interface IGitHubRepositoriesRulesetsUtil
     /// <returns>
     /// A <see cref="ValueTask"/> representing the asynchronous operation.
     /// </returns>
-    ValueTask DeleteAllRulesets(string owner, string name, CancellationToken cancellationToken = default);
+    ValueTask DeleteAll(string owner, string name, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes a specific ruleset by ID for the specified owner and repository name.
@@ -47,7 +47,7 @@ public interface IGitHubRepositoriesRulesetsUtil
     /// <returns>
     /// A <see cref="ValueTask"/> representing the asynchronous operation.
     /// </returns>
-    ValueTask DeleteRuleset(string owner, string name, int rulesetId, CancellationToken cancellationToken = default);
+    ValueTask Delete(string owner, string name, int rulesetId, CancellationToken cancellationToken = default);
 
     HttpRequestMessage CreateGitHubRequest(HttpMethod method, string url);
 }

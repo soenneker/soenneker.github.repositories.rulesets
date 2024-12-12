@@ -47,7 +47,7 @@ public class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesetsUtil
         response.EnsureSuccessStatusCode();
     }
 
-    public async ValueTask<List<RepositoryRuleset>?> GetRulesets(string owner, string name, CancellationToken cancellationToken = default)
+    public async ValueTask<List<RepositoryRuleset>?> GetAll(string owner, string name, CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Getting rulesets for repo ({owner}/{repo}) ...", owner, name);
 
@@ -65,22 +65,22 @@ public class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesetsUtil
         return response;
     }
 
-    public async ValueTask DeleteAllRulesets(string owner, string name, CancellationToken cancellationToken = default)
+    public async ValueTask DeleteAll(string owner, string name, CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Deleting all rulesets for repo ({owner}/{repo}) ...", owner, name);
 
-        List<RepositoryRuleset>? rulesets = await GetRulesets(owner, name, cancellationToken).NoSync();
+        List<RepositoryRuleset>? rulesets = await GetAll(owner, name, cancellationToken).NoSync();
 
         if (rulesets != null)
         {
             foreach (RepositoryRuleset ruleset in rulesets)
             {
-                await DeleteRuleset(owner, name, ruleset.Id.Value, cancellationToken).NoSync();
+                await Delete(owner, name, ruleset.Id.Value, cancellationToken).NoSync();
             }
         }
     }
 
-    public async ValueTask DeleteRuleset(string owner, string name, int rulesetId, CancellationToken cancellationToken = default)
+    public async ValueTask Delete(string owner, string name, int rulesetId, CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Deleting ruleset ({rulesetId}) to repo ({owner}/{repo}) ...", rulesetId, owner, name);
 
