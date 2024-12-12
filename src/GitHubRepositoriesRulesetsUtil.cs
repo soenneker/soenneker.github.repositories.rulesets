@@ -78,7 +78,7 @@ public class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesetsUtil
         response.EnsureSuccessStatusCode();
     }
 
-    private HttpRequestMessage CreateGitHubRequest(HttpMethod method, string url)
+    public HttpRequestMessage CreateGitHubRequest(HttpMethod method, string url)
     {
         var request = new HttpRequestMessage(method, url);
         request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));

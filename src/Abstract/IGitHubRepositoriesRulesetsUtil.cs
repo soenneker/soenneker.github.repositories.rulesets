@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Threading;
 
@@ -44,4 +45,5 @@ public interface IGitHubRepositoriesRulesetsUtil
     /// </returns>
     ValueTask DeleteRuleset(string owner, string name, int rulesetId, CancellationToken cancellationToken = default);
 
+    HttpRequestMessage CreateGitHubRequest(HttpMethod method, string url);
 }
