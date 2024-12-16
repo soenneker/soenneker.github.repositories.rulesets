@@ -36,7 +36,7 @@ public class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesetsUtil
 
         var url = $"repos/{owner}/{name}/rulesets";
 
-        HttpRequestMessage request = CreateGitHubRequest(HttpMethod.Post, url);
+        using HttpRequestMessage request = CreateGitHubRequest(HttpMethod.Post, url);
 
         request.Content = ruleset.ToHttpContent();
 
@@ -53,7 +53,7 @@ public class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesetsUtil
 
         var url = $"repos/{owner}/{name}/rulesets";
 
-        HttpRequestMessage request = CreateGitHubRequest(HttpMethod.Get, url);
+        using HttpRequestMessage request = CreateGitHubRequest(HttpMethod.Get, url);
 
         HttpClient client = await _gitHubHttpClient.Get(cancellationToken).NoSync();
 
@@ -87,7 +87,7 @@ public class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesetsUtil
         // Set up the request URL
         var url = $"repos/{owner}/{name}/rulesets/{rulesetId}";
 
-        HttpRequestMessage request = CreateGitHubRequest(HttpMethod.Delete, url);
+        using HttpRequestMessage request = CreateGitHubRequest(HttpMethod.Delete, url);
 
         HttpClient client = await _gitHubHttpClient.Get(cancellationToken).NoSync();
 
