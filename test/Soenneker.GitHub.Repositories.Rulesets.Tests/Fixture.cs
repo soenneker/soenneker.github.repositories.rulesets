@@ -2,8 +2,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Soenneker.Fixtures.Unit;
-using Soenneker.GitHub.Repositories.Rulesets.Registrars;
 using Soenneker.Utils.Test;
+using Soenneker.GitHub.Repositories.Rulesets.Registrars;
 
 namespace Soenneker.GitHub.Repositories.Rulesets.Tests;
 
@@ -18,10 +18,14 @@ public class Fixture : UnitFixture
 
     private static void SetupIoC(IServiceCollection services)
     {
-        services.AddLogging(builder => { builder.AddSerilog(dispose: true); });
+        services.AddLogging(builder =>
+        {
+            builder.AddSerilog(dispose: true);
+        });
 
         IConfiguration config = TestUtil.BuildConfig();
         services.AddSingleton(config);
+
         services.AddGitHubRepositoriesRulesetsUtilAsScoped();
     }
 }
