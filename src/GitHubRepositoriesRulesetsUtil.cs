@@ -5,14 +5,11 @@ using System.Threading.Tasks;
 using System.Threading;
 using Soenneker.Extensions.ValueTask;
 using Soenneker.GitHub.Client.Http.Abstract;
-using System.Net.Http.Headers;
-using Microsoft.Extensions.Configuration;
-using Soenneker.Extensions.Configuration;
-using System;
 using Microsoft.Extensions.Logging;
 using Soenneker.Extensions.HttpResponseMessage;
 using Soenneker.Extensions.Task;
 using Soenneker.Extensions.Object;
+using Soenneker.Extensions.HttpClient;
 
 namespace Soenneker.GitHub.Repositories.Rulesets;
 
@@ -21,30 +18,37 @@ public class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesetsUtil
 {
     private readonly ILogger<GitHubRepositoriesRulesetsUtil> _logger;
     private readonly IGitHubHttpClient _gitHubHttpClient;
-    private readonly string _token;
 
-    public GitHubRepositoriesRulesetsUtil(ILogger<GitHubRepositoriesRulesetsUtil> logger, IGitHubHttpClient gitHubHttpClient, IConfiguration config)
+    public GitHubRepositoriesRulesetsUtil(ILogger<GitHubRepositoriesRulesetsUtil> logger, IGitHubHttpClient gitHubHttpClient)
     {
         _logger = logger;
         _gitHubHttpClient = gitHubHttpClient;
-        _token = config.GetValueStrict<string>("GitHub:Token");
     }
 
     public async ValueTask Add(string owner, string name, RepositoryRuleset ruleset, CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Adding ruleset to repo ({owner}/{repo}) branch ('main') ...", owner, name);
 
-        var url = $"repos/{owner}/{name}/rulesets";
-
-        using HttpRequestMessage request = CreateGitHubRequest(HttpMethod.Post, url);
-
-        request.Content = ruleset.ToHttpContent();
+        var uri = $"repos/{owner}/{name}/rulesets";
 
         HttpClient client = await _gitHubHttpClient.Get(cancellationToken).NoSync();
 
-        HttpResponseMessage response = await client.SendAsync(request, cancellationToken).NoSync();
+        using var request = new HttpRequestMessage(HttpMethod.Post, uri);
 
-        response.EnsureSuccessStatusCode();
+        request.Content = ruleset.ToHttpContent();
+
+        (bool successful, HttpResponseMessage? response) = await client.TrySend(request, _logger, cancellationToken).NoSync();
+
+        if (!successful)
+        {
+            if (response != null)
+            {
+                string? errorContent = await response.ToStringSafe(_logger, cancellationToken).NoSync();
+                _logger.LogError("Failed to add ruleset: {StatusCode} - {ErrorContent}", response.StatusCode, errorContent);
+            }
+            else
+                _logger.LogError("Failed to add ruleset");
+        }
     }
 
     public async ValueTask<List<RepositoryRuleset>?> GetAll(string owner, string name, CancellationToken cancellationToken = default)
@@ -53,7 +57,7 @@ public class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesetsUtil
 
         var url = $"repos/{owner}/{name}/rulesets";
 
-        using HttpRequestMessage request = CreateGitHubRequest(HttpMethod.Get, url);
+        using var request = new HttpRequestMessage(HttpMethod.Get, url);
 
         HttpClient client = await _gitHubHttpClient.Get(cancellationToken).NoSync();
 
@@ -87,23 +91,12 @@ public class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesetsUtil
         // Set up the request URL
         var url = $"repos/{owner}/{name}/rulesets/{rulesetId}";
 
-        using HttpRequestMessage request = CreateGitHubRequest(HttpMethod.Delete, url);
+        using var request = new HttpRequestMessage(HttpMethod.Delete, url);
 
         HttpClient client = await _gitHubHttpClient.Get(cancellationToken).NoSync();
 
         // Send the request
         HttpResponseMessage response = await client.SendAsync(request, cancellationToken).NoSync();
         response.EnsureSuccessStatusCode();
-    }
-
-    public HttpRequestMessage CreateGitHubRequest(HttpMethod method, string url)
-    {
-        var request = new HttpRequestMessage(method, url);
-        request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-        request.Headers.Add("X-GitHub-Api-Version", "2022-11-28");
-        request.Headers.Add("User-Agent", Guid.NewGuid().ToString());
-
-        return request;
     }
 }

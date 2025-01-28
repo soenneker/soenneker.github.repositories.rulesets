@@ -48,6 +48,4 @@ public interface IGitHubRepositoriesRulesetsUtil
     /// A <see cref="ValueTask"/> representing the asynchronous operation.
     /// </returns>
     ValueTask Delete(string owner, string name, int rulesetId, CancellationToken cancellationToken = default);
-
-    HttpRequestMessage CreateGitHubRequest(HttpMethod method, string url);
 }
