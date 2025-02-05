@@ -64,9 +64,7 @@ public class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesetsUtil
         HttpResponseMessage responseMsg = await client.SendAsync(request, cancellationToken).NoSync();
         responseMsg.EnsureSuccessStatusCode();
 
-        var response = await responseMsg.To<List<RepositoryRuleset>>(_logger, cancellationToken);
-
-        return response;
+        return await responseMsg.To<List<RepositoryRuleset>>(_logger, cancellationToken);
     }
 
     public async ValueTask DeleteAll(string owner, string name, CancellationToken cancellationToken = default)
