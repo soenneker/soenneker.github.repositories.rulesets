@@ -1,16 +1,13 @@
 using System.Text.Json.Serialization;
-using Ardalis.SmartEnum.SystemTextJson;
 
-public class BypassActor
+public record BypassActor
 {
     [JsonPropertyName("actor_id")]
     public int? ActorId { get; set; }
 
     [JsonPropertyName("actor_type")]
-    [JsonConverter(typeof(SmartEnumNameConverter<ActorTypeEnum, int>))]
-    public ActorTypeEnum ActorType { get; set; } = default!;
+    public ActorTypeEnum ActorType { get; set; } = null!;
 
     [JsonPropertyName("bypass_mode")]
-    [JsonConverter(typeof(SmartEnumNameConverter<BypassModeEnum, int>))]
-    public BypassModeEnum BypassMode { get; set; } = default!;
+    public BypassModeEnum BypassMode { get; set; } = null!;
 }

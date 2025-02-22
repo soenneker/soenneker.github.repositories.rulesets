@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-public class RefNameCondition
+public record RefNameCondition
 {
     [JsonPropertyName("include")]
     public List<string>? Include { get; set; }

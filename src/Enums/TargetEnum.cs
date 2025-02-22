@@ -1,11 +1,9 @@
-using Ardalis.SmartEnum;
-using Soenneker.Extensions.String;
+using Intellenum;
 
-public class TargetEnum : SmartEnum<TargetEnum>
+[Intellenum(typeof(string))]
+public partial class TargetEnum
 {
-    public static readonly TargetEnum Branch = new(nameof(Branch).ToLowerInvariantFast(), 0);
-    public static readonly TargetEnum Tag = new(nameof(Tag).ToLowerInvariantFast(), 1);
-    public static readonly TargetEnum Push = new(nameof(Push).ToLowerInvariantFast(), 2);
-
-    private TargetEnum(string name, int value) : base(name, value) { }
+    public static readonly TargetEnum Branch = new("branch");
+    public static readonly TargetEnum Tag = new("tag");
+    public static readonly TargetEnum Push = new("push");
 }

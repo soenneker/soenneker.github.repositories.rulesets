@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-public class HrefObj
+public record HrefObj
 {
     [JsonPropertyName("href")]
     public string? Href { get; set; }

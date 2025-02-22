@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 
-public class CodeScanningTool
+public record CodeScanningTool
 {
     [JsonPropertyName("tool")]
-    public string Tool { get; set; } = default!;
+    public string Tool { get; set; } = null!;
 }

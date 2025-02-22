@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Ardalis.SmartEnum.SystemTextJson;
 
-public class RepositoryRuleset
+public record RepositoryRuleset
 {
     [JsonPropertyName("id")]
     public int? Id { get; set; }
 
     [JsonPropertyName("name")]
-    public string Name { get; set; } = default!;
+    public string Name { get; set; } = null!;
 
     [JsonPropertyName("source_type")]
     public string? SourceType { get; set; }
@@ -21,12 +20,10 @@ public class RepositoryRuleset
     public string? NodeId { get; set; }
 
     [JsonPropertyName("target")]
-    [JsonConverter(typeof(SmartEnumNameConverter<TargetEnum, int>))]
-    public TargetEnum Target { get; set; } = default!;
+    public TargetEnum Target { get; set; } = null!;
 
     [JsonPropertyName("enforcement")]
-    [JsonConverter(typeof(SmartEnumNameConverter<EnforcementEnum, int>))]
-    public EnforcementEnum Enforcement { get; set; } = default!;
+    public EnforcementEnum Enforcement { get; set; } = null!;
 
     [JsonPropertyName("bypass_actors")]
     public List<BypassActor>? BypassActors { get; set; }

@@ -1,9 +1,9 @@
 using System.Text.Json.Serialization;
 
-public class StatusCheck
+public record StatusCheck
 {
     [JsonPropertyName("context")]
-    public string Context { get; set; } = default!;
+    public string Context { get; set; } = null!;
 
     [JsonPropertyName("integration_id")]
     public int? IntegrationId { get; set; }

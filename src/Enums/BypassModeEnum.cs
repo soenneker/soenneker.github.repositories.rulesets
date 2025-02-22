@@ -1,10 +1,8 @@
-using Ardalis.SmartEnum;
-using Soenneker.Extensions.String;
+using Intellenum;
 
-public class BypassModeEnum : SmartEnum<BypassModeEnum>
+[Intellenum(typeof(string))]
+public partial class BypassModeEnum
 {
-    public static readonly BypassModeEnum Always = new(nameof(Always).ToLowerInvariantFast(), 0);
-    public static readonly BypassModeEnum PullRequest = new(nameof(PullRequest).ToLowerInvariantFast(), 1);
-
-    private BypassModeEnum(string name, int value) : base(name, value) { }
+    public static readonly BypassModeEnum Always = new("always");
+    public static readonly BypassModeEnum PullRequest = new("pullrequest");
 }

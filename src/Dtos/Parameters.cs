@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-public class Parameters
+public record Parameters
 {
     [JsonPropertyName("name")]
     public string? Name { get; set; }

@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-public class Links
+public record Links
 {
     [JsonPropertyName("self")]
     public HrefObj? Self { get; set; }

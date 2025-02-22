@@ -1,11 +1,8 @@
-using Ardalis.SmartEnum;
+using Intellenum;
 
-public sealed class RuleSetSourceType : SmartEnum<RuleSetSourceType>
+[Intellenum(typeof(string))]
+public partial class RuleSetSourceType
 {
-    public static readonly RuleSetSourceType Repository = new RuleSetSourceType(nameof(Repository), 1);
-    public static readonly RuleSetSourceType Organization = new RuleSetSourceType(nameof(Organization), 2);
-
-    private RuleSetSourceType(string name, int value) : base(name, value)
-    {
-    }
+    public static readonly RuleSetSourceType Repository = new(nameof(Repository));
+    public static readonly RuleSetSourceType Organization = new(nameof(Organization));
 }
