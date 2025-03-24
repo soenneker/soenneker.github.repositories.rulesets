@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Diagnostics.Contracts;
+using Soenneker.GitHub.Repositories.Rulesets.Dtos;
 
 namespace Soenneker.GitHub.Repositories.Rulesets.Abstract;
 

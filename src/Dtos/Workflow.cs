@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
 
+namespace Soenneker.GitHub.Repositories.Rulesets.Dtos;
+
 public record Workflow
 {
     [JsonPropertyName("path")]

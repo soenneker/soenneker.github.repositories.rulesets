@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
 
+namespace Soenneker.GitHub.Repositories.Rulesets.Dtos;
+
 public record Links
 {
     [JsonPropertyName("self")]

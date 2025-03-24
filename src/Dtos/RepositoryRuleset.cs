@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using Soenneker.GitHub.Repositories.Rulesets.Enums;
+
+namespace Soenneker.GitHub.Repositories.Rulesets.Dtos;
 
 public record RepositoryRuleset
 {

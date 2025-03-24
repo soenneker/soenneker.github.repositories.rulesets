@@ -1,5 +1,7 @@
 using Intellenum;
 
+namespace Soenneker.GitHub.Repositories.Rulesets.Enums;
+
 [Intellenum(typeof(string))]
 public partial class RuleSetSourceType
 {

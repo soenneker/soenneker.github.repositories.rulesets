@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
+namespace Soenneker.GitHub.Repositories.Rulesets.Dtos;
+
 public record RefNameCondition
 {
     [JsonPropertyName("include")]

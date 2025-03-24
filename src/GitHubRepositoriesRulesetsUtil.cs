@@ -10,6 +10,7 @@ using Soenneker.Extensions.HttpResponseMessage;
 using Soenneker.Extensions.Task;
 using Soenneker.Extensions.Object;
 using Soenneker.Extensions.HttpClient;
+using Soenneker.GitHub.Repositories.Rulesets.Dtos;
 
 namespace Soenneker.GitHub.Repositories.Rulesets;
 
