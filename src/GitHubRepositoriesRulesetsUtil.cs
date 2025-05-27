@@ -15,7 +15,7 @@ using Soenneker.GitHub.Repositories.Rulesets.Dtos;
 namespace Soenneker.GitHub.Repositories.Rulesets;
 
 /// <inheritdoc cref="IGitHubRepositoriesRulesetsUtil"/>
-public class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesetsUtil
+public sealed class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesetsUtil
 {
     private readonly ILogger<GitHubRepositoriesRulesetsUtil> _logger;
     private readonly IGitHubHttpClient _gitHubHttpClient;
