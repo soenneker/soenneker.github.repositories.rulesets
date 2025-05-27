@@ -76,8 +76,9 @@ public sealed class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesets
 
         if (rulesets != null)
         {
-            foreach (RepositoryRuleset ruleset in rulesets)
+            for (var i = 0; i < rulesets.Count; i++)
             {
+                RepositoryRuleset ruleset = rulesets[i];
                 await Delete(owner, name, ruleset.Id.Value, cancellationToken).NoSync();
             }
         }
