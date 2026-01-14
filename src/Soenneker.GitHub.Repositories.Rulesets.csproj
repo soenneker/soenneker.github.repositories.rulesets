@@ -42,7 +42,7 @@
 
     <ItemGroup>
         <PackageReference Include="Intellenum" Version="2.0.1" />
-        <PackageReference Include="Soenneker.Extensions.HttpClient" Version="4.0.3562" />
+        <PackageReference Include="Soenneker.Extensions.HttpClient" Version="4.0.3563" />
         <PackageReference Include="Soenneker.GitHub.Client.Http" Version="4.0.1172" />
     </ItemGroup>
 
