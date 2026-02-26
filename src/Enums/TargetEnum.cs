@@ -1,8 +1,8 @@
-using Intellenum;
+using Soenneker.Gen.EnumValues;
 
 namespace Soenneker.GitHub.Repositories.Rulesets.Enums;
 
-[Intellenum(typeof(string))]
+[EnumValue<string>]
 public partial class TargetEnum
 {
     public static readonly TargetEnum Branch = new("branch");

@@ -1,8 +1,8 @@
-using Intellenum;
+using Soenneker.Gen.EnumValues;
 
 namespace Soenneker.GitHub.Repositories.Rulesets.Enums;
 
-[Intellenum(typeof(string))]
+[EnumValue<string>]
 public partial class EnforcementEnum
 {
     public static readonly EnforcementEnum Disabled = new("disabled");
