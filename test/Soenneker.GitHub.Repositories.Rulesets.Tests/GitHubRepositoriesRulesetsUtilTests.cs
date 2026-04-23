@@ -1,20 +1,19 @@
 using Soenneker.GitHub.Repositories.Rulesets.Abstract;
-using Soenneker.Tests.FixturedUnit;
-using Xunit;
+using Soenneker.Tests.HostedUnit;
 
 namespace Soenneker.GitHub.Repositories.Rulesets.Tests;
 
-[Collection("Collection")]
-public class GitHubRepositoriesRulesetsUtilTests : FixturedUnitTest
+[ClassDataSource<Host>(Shared = SharedType.PerTestSession)]
+public class GitHubRepositoriesRulesetsUtilTests : HostedUnitTest
 {
     private readonly IGitHubRepositoriesRulesetsUtil _util;
 
-    public GitHubRepositoriesRulesetsUtilTests(Fixture fixture, ITestOutputHelper output) : base(fixture, output)
+    public GitHubRepositoriesRulesetsUtilTests(Host host) : base(host)
     {
         _util = Resolve<IGitHubRepositoriesRulesetsUtil>(true);
     }
 
-    [Fact]
+    [Test]
     public void Default()
     {
 
