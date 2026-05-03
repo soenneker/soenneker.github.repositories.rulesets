@@ -46,7 +46,7 @@
     <ItemGroup>
         <PackageReference Include="Soenneker.Gen.EnumValues" Version="4.0.35" />
         <PackageReference Include="Soenneker.Extensions.HttpClient" Version="4.0.3781" />
-        <PackageReference Include="Soenneker.GitHub.Client.Http" Version="4.0.1303" />
+        <PackageReference Include="Soenneker.GitHub.Client.Http" Version="4.0.1304" />
     </ItemGroup>
 
     <ItemGroup>
