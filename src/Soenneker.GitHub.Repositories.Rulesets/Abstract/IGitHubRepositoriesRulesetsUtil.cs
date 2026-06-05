@@ -11,6 +11,14 @@ namespace Soenneker.GitHub.Repositories.Rulesets.Abstract;
 /// </summary>
 public interface IGitHubRepositoriesRulesetsUtil
 {
+    /// <summary>
+    /// Executes the add operation.
+    /// </summary>
+    /// <param name="owner">The owner.</param>
+    /// <param name="name">The name.</param>
+    /// <param name="ruleset">The ruleset.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     ValueTask Add(string owner, string name, RepositoryRuleset ruleset, CancellationToken cancellationToken = default);
 
     /// <summary>
