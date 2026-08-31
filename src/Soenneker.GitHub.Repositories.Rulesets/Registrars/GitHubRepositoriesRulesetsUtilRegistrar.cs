@@ -6,7 +6,7 @@ using Soenneker.GitHub.Repositories.Rulesets.Abstract;
 namespace Soenneker.GitHub.Repositories.Rulesets.Registrars;
 
 /// <summary>
-/// A utility library for GitHub repository ruleset related operations
+/// Registers services for creating, listing, and deleting GitHub repository rulesets.
 /// </summary>
 public static class GitHubRepositoriesRulesetsUtilRegistrar
 {

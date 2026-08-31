@@ -6,15 +6,13 @@ using System.Threading;
 using Soenneker.Extensions.ValueTask;
 using Soenneker.GitHub.Client.Http.Abstract;
 using Microsoft.Extensions.Logging;
-using Soenneker.Extensions.HttpResponseMessage;
 using Soenneker.Extensions.Task;
 using Soenneker.Extensions.Object;
-using Soenneker.Extensions.HttpClient;
+using Soenneker.Extensions.HttpResponseMessage;
 using Soenneker.GitHub.Repositories.Rulesets.Dtos;
 
 namespace Soenneker.GitHub.Repositories.Rulesets;
 
-/// <inheritdoc cref="IGitHubRepositoriesRulesetsUtil"/>
 public sealed class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesetsUtil
 {
     private readonly ILogger<GitHubRepositoriesRulesetsUtil> _logger;
@@ -38,49 +36,56 @@ public sealed class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesets
 
         request.Content = ruleset.ToHttpContent();
 
-        (bool successful, HttpResponseMessage? response) = await client.TrySend(request, _logger, cancellationToken).NoSync();
-
-        if (!successful)
-        {
-            if (response != null)
-            {
-                string? errorContent = await response.ToStringSafe(_logger, cancellationToken).NoSync();
-                _logger.LogError("Failed to add ruleset: {StatusCode} - {ErrorContent}", response.StatusCode, errorContent);
-            }
-            else
-                _logger.LogError("Failed to add ruleset");
-        }
+        using HttpResponseMessage response = await client.SendAsync(request, cancellationToken).NoSync();
+        response.EnsureSuccessStatusCode();
     }
 
-    public async ValueTask<List<RepositoryRuleset>?> GetAll(string owner, string name, CancellationToken cancellationToken = default)
+    public async ValueTask<List<RepositoryRuleset>> GetAll(string owner, string name, CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Getting rulesets for repo ({owner}/{repo}) ...", owner, name);
 
-        var url = $"repos/{owner}/{name}/rulesets";
-
-        using var request = new HttpRequestMessage(HttpMethod.Get, url);
-
         HttpClient client = await _gitHubHttpClient.Get(cancellationToken).NoSync();
+        var rulesets = new List<RepositoryRuleset>();
+        var page = 1;
+        const int perPage = 100;
 
-        HttpResponseMessage responseMsg = await client.SendAsync(request, cancellationToken).NoSync();
-        responseMsg.EnsureSuccessStatusCode();
+        while (true)
+        {
+            var url = $"repos/{owner}/{name}/rulesets?per_page={perPage}&page={page}";
+            using var request = new HttpRequestMessage(HttpMethod.Get, url);
+            using HttpResponseMessage response = await client.SendAsync(request, cancellationToken).NoSync();
+            response.EnsureSuccessStatusCode();
 
-        return await responseMsg.To<List<RepositoryRuleset>>(_logger, cancellationToken);
+            List<RepositoryRuleset>? pageOfRulesets = await response.To<List<RepositoryRuleset>>(_logger, cancellationToken).NoSync();
+
+            if (pageOfRulesets == null || pageOfRulesets.Count == 0)
+                break;
+
+            rulesets.AddRange(pageOfRulesets);
+
+            if (pageOfRulesets.Count < perPage)
+                break;
+
+            page++;
+        }
+
+        return rulesets;
     }
 
     public async ValueTask DeleteAll(string owner, string name, CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Deleting all rulesets for repo ({owner}/{repo}) ...", owner, name);
 
-        List<RepositoryRuleset>? rulesets = await GetAll(owner, name, cancellationToken).NoSync();
+        List<RepositoryRuleset> rulesets = await GetAll(owner, name, cancellationToken).NoSync();
 
-        if (rulesets != null)
+        for (var i = 0; i < rulesets.Count; i++)
         {
-            for (var i = 0; i < rulesets.Count; i++)
-            {
-                RepositoryRuleset ruleset = rulesets[i];
-                await Delete(owner, name, ruleset.Id.Value, cancellationToken).NoSync();
-            }
+            RepositoryRuleset ruleset = rulesets[i];
+
+            if (ruleset.Id is not int rulesetId)
+                throw new System.InvalidOperationException("GitHub returned a repository ruleset without an ID.");
+
+            await Delete(owner, name, rulesetId, cancellationToken).NoSync();
         }
     }
 
@@ -96,7 +101,7 @@ public sealed class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesets
         HttpClient client = await _gitHubHttpClient.Get(cancellationToken).NoSync();
 
         // Send the request
-        HttpResponseMessage response = await client.SendAsync(request, cancellationToken).NoSync();
+        using HttpResponseMessage response = await client.SendAsync(request, cancellationToken).NoSync();
         response.EnsureSuccessStatusCode();
     }
 }

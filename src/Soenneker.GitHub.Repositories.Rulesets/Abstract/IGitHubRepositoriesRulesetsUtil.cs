@@ -7,12 +7,12 @@ using Soenneker.GitHub.Repositories.Rulesets.Dtos;
 namespace Soenneker.GitHub.Repositories.Rulesets.Abstract;
 
 /// <summary>
-/// A utility library for GitHub repository ruleset related operations
+/// Creates, lists, and deletes GitHub repository rulesets.
 /// </summary>
 public interface IGitHubRepositoriesRulesetsUtil
 {
     /// <summary>
-    /// Executes the add operation.
+    /// Creates a repository ruleset.
     /// </summary>
     /// <param name="owner">The owner.</param>
     /// <param name="name">The name.</param>
@@ -29,10 +29,10 @@ public interface IGitHubRepositoriesRulesetsUtil
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>
     /// A <see cref="ValueTask{TResult}"/> representing the asynchronous operation. The result contains a list of <see cref="RepositoryRuleset"/> 
-    /// if rulesets are found, or <c>null</c> if no rulesets are available.
+    /// if rulesets are found, or an empty list if none are available.
     /// </returns>
     [Pure]
-    ValueTask<List<RepositoryRuleset>?> GetAll(string owner, string name, CancellationToken cancellationToken = default);
+    ValueTask<List<RepositoryRuleset>> GetAll(string owner, string name, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes all rulesets for the specified owner and repository name.
