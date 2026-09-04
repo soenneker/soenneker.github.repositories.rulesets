@@ -13,6 +13,7 @@ using Soenneker.GitHub.Repositories.Rulesets.Dtos;
 
 namespace Soenneker.GitHub.Repositories.Rulesets;
 
+/// <inheritdoc cref="IGitHubRepositoriesRulesetsUtil" />
 public sealed class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesetsUtil
 {
     private readonly ILogger<GitHubRepositoriesRulesetsUtil> _logger;
