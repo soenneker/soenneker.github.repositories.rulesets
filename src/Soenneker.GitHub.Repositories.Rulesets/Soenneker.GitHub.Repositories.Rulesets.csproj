@@ -59,6 +59,6 @@
         <PackageReference Include="Soenneker.Extensions.HttpResponseMessage" Version="4.0.2534" />
         <PackageReference Include="Soenneker.Extensions.Object" Version="4.0.4374" />
         <PackageReference Include="Soenneker.Extensions.Task" Version="4.0.130" />
-        <PackageReference Include="Soenneker.Extensions.ValueTask" Version="4.0.123" />
+        <PackageReference Include="Soenneker.Extensions.ValueTask" Version="4.0.124" />
     </ItemGroup>
 </Project>
