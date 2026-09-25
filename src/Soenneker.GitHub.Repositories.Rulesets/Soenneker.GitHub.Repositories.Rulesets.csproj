@@ -45,7 +45,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.GitHub.Client.Http" Version="4.0.1485" />
+        <PackageReference Include="Soenneker.GitHub.Client.Http" Version="4.0.1486" />
     </ItemGroup>
 
     <ItemGroup>
@@ -56,9 +56,9 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.12" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.12" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-        <PackageReference Include="Soenneker.Extensions.HttpResponseMessage" Version="4.0.2536" />
-        <PackageReference Include="Soenneker.Extensions.Object" Version="4.0.4374" />
+        <PackageReference Include="Soenneker.Extensions.HttpResponseMessage" Version="4.0.2540" />
+        <PackageReference Include="Soenneker.Extensions.Object" Version="4.0.4377" />
         <PackageReference Include="Soenneker.Extensions.Task" Version="4.0.131" />
-        <PackageReference Include="Soenneker.Extensions.ValueTask" Version="4.0.123" />
+        <PackageReference Include="Soenneker.Extensions.ValueTask" Version="4.0.124" />
     </ItemGroup>
 </Project>
