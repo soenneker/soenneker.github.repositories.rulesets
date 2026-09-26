@@ -8,6 +8,9 @@ namespace Soenneker.GitHub.Repositories.Rulesets.Enums;
 [EnumValue<string>]
 public partial class TargetEnum
 {
+    // Prevent JSON source generation from assuming an implicit public constructor.
+    private TargetEnum() => throw new System.NotSupportedException("Use a declared enum value.");
+
     /// <summary>
     /// The branch.
     /// </summary>

@@ -8,6 +8,9 @@ namespace Soenneker.GitHub.Repositories.Rulesets.Enums;
 [EnumValue<string>]
 public partial class ActorTypeEnum
 {
+    // Prevent JSON source generation from assuming an implicit public constructor.
+    private ActorTypeEnum() => throw new System.NotSupportedException("Use a declared enum value.");
+
     /// <summary>
     /// The integration.
     /// </summary>

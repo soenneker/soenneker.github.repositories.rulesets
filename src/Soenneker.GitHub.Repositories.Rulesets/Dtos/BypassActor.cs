@@ -18,11 +18,13 @@ public record BypassActor
     /// Gets or sets actor type.
     /// </summary>
     [JsonPropertyName("actor_type")]
+    [JsonConverter(typeof(ActorTypeEnumWireConverter))]
     public ActorTypeEnum ActorType { get; set; } = null!;
 
     /// <summary>
     /// Gets or sets bypass mode.
     /// </summary>
     [JsonPropertyName("bypass_mode")]
+    [JsonConverter(typeof(BypassModeEnumWireConverter))]
     public BypassModeEnum BypassMode { get; set; } = null!;
 }
