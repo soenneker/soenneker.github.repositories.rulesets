@@ -44,12 +44,14 @@ public record RepositoryRuleset
     /// Gets or sets target.
     /// </summary>
     [JsonPropertyName("target")]
+    [JsonConverter(typeof(TargetEnumWireConverter))]
     public TargetEnum Target { get; set; } = null!;
 
     /// <summary>
     /// Gets or sets enforcement.
     /// </summary>
     [JsonPropertyName("enforcement")]
+    [JsonConverter(typeof(EnforcementEnumWireConverter))]
     public EnforcementEnum Enforcement { get; set; } = null!;
 
     /// <summary>

@@ -13,7 +13,6 @@ using Soenneker.GitHub.Repositories.Rulesets.Dtos;
 
 namespace Soenneker.GitHub.Repositories.Rulesets;
 
-/// <inheritdoc cref="IGitHubRepositoriesRulesetsUtil" />
 public sealed class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesetsUtil
 {
     private readonly ILogger<GitHubRepositoriesRulesetsUtil> _logger;
@@ -35,7 +34,7 @@ public sealed class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesets
 
         using var request = new HttpRequestMessage(HttpMethod.Post, uri);
 
-        request.Content = ruleset.ToHttpContent();
+        request.Content = ruleset.ToHttpContent(RulesetJsonContext.Default.RepositoryRuleset);
 
         using HttpResponseMessage response = await client.SendAsync(request, cancellationToken).NoSync();
         response.EnsureSuccessStatusCode();
@@ -57,7 +56,7 @@ public sealed class GitHubRepositoriesRulesetsUtil : IGitHubRepositoriesRulesets
             using HttpResponseMessage response = await client.SendAsync(request, cancellationToken).NoSync();
             response.EnsureSuccessStatusCode();
 
-            List<RepositoryRuleset>? pageOfRulesets = await response.To<List<RepositoryRuleset>>(_logger, cancellationToken).NoSync();
+            List<RepositoryRuleset>? pageOfRulesets = await response.To(RulesetJsonContext.Default.ListRepositoryRuleset, _logger, cancellationToken).NoSync();
 
             if (pageOfRulesets == null || pageOfRulesets.Count == 0)
                 break;
