@@ -14,7 +14,7 @@ namespace Soenneker.GitHub.Repositories.Rulesets.Tests;
 public sealed class RulesetSerializationTests
 {
     [Test]
-    public async Task Rulesets_preserve_enum_wire_values_in_both_directions()
+    public async ValueTask Rulesets_preserve_enum_wire_values_in_both_directions()
     {
         using var handler = new CaptureHandler();
         using var client = new ClientProvider(handler);
