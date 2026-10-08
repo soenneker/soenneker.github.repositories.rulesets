@@ -14,7 +14,7 @@ namespace Soenneker.GitHub.Repositories.Rulesets.Tests;
 public sealed class RulesetSerializationTests
 {
     [Test]
-    public async ValueTask Rulesets_preserve_enum_wire_values_in_both_directions()
+    public async ValueTask Rulesets_preserve_enum_wire_values_in_both_directions(CancellationToken cancellationToken)
     {
         using var handler = new CaptureHandler();
         using var client = new ClientProvider(handler);
@@ -27,14 +27,14 @@ public sealed class RulesetSerializationTests
             BypassActors = [new BypassActor { ActorId = 1, ActorType = ActorTypeEnum.Team, BypassMode = BypassModeEnum.Always }]
         };
 
-        await util.Add("owner", "repo", ruleset);
+        await util.Add("owner", "repo", ruleset, cancellationToken: cancellationToken);
         using JsonDocument body = JsonDocument.Parse(handler.Body!);
         if (body.RootElement.GetProperty("target").GetString() != "branch"
             || body.RootElement.GetProperty("enforcement").GetString() != "active"
             || body.RootElement.GetProperty("bypass_actors")[0].GetProperty("actor_type").GetString() != "Team")
             throw new InvalidOperationException("Ruleset enum values were not serialized as GitHub strings.");
 
-        var result = await util.GetAll("owner", "repo");
+        var result = await util.GetAll("owner", "repo", cancellationToken: cancellationToken);
         if (result.Count != 1 || result[0].Target != TargetEnum.Branch || result[0].Enforcement != EnforcementEnum.Active
             || result[0].BypassActors![0].ActorType != ActorTypeEnum.Team || result[0].BypassActors![0].BypassMode != BypassModeEnum.Always)
             throw new InvalidOperationException("Ruleset enum values did not round trip.");
