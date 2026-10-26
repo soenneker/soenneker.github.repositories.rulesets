@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
+        <TargetFramework>net11.0</TargetFramework>
         <IsAotCompatible>true</IsAotCompatible>
         <Nullable>enable</Nullable>
         <Platforms>AnyCPU</Platforms>
@@ -10,7 +10,7 @@
 
     <PropertyGroup>
         <Description>Creates, lists, and deletes GitHub repository rulesets</Description>
-        <Version Condition="'$(BUILD_VERSION)' == ''">4.0.0</Version>
+        <Version Condition="'$(BUILD_VERSION)' == ''">11.0.0</Version>
         <Version Condition="'$(BUILD_VERSION)' != ''">$(BUILD_VERSION)</Version>
         <AssemblyName>Soenneker.GitHub.Repositories.Rulesets</AssemblyName>
         <PackageId>Soenneker.GitHub.Repositories.Rulesets</PackageId>
@@ -45,7 +45,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.GitHub.Client.Http" Version="4.0.1528" />
+        <PackageReference Include="Soenneker.GitHub.Client.Http" Version="4.0.1529" />
     </ItemGroup>
 
     <ItemGroup>
@@ -53,10 +53,8 @@
       <Folder Include="Enums\" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.14" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.13" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-        <PackageReference Include="Soenneker.Extensions.HttpResponseMessage" Version="4.0.2612" />
+        <PackageReference Include="Soenneker.Extensions.HttpResponseMessage" Version="4.0.2614" />
         <PackageReference Include="Soenneker.Extensions.Object" Version="4.0.4419" />
         <PackageReference Include="Soenneker.Extensions.Task" Version="4.0.140" />
         <PackageReference Include="Soenneker.Extensions.ValueTask" Version="4.0.133" />
