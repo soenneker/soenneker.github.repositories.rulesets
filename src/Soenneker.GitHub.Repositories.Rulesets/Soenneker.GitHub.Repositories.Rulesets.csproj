@@ -54,7 +54,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-        <PackageReference Include="Soenneker.Extensions.HttpResponseMessage" Version="4.0.2614" />
+        <PackageReference Include="Soenneker.Extensions.HttpResponseMessage" Version="11.0.2622" />
         <PackageReference Include="Soenneker.Extensions.Object" Version="4.0.4419" />
         <PackageReference Include="Soenneker.Extensions.Task" Version="11.0.141" />
         <PackageReference Include="Soenneker.Extensions.ValueTask" Version="4.0.133" />
