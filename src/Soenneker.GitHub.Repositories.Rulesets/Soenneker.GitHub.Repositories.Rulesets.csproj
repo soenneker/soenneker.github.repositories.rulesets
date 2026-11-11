@@ -46,7 +46,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.GitHub.Client.Http" Version="11.0.1551" />
+        <PackageReference Include="Soenneker.GitHub.Client.Http" Version="11.0.1552" />
     </ItemGroup>
 
     <ItemGroup>
@@ -55,7 +55,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-        <PackageReference Include="Soenneker.Extensions.HttpResponseMessage" Version="11.0.2647" />
-        <PackageReference Include="Soenneker.Extensions.Object" Version="11.0.4438" />
+        <PackageReference Include="Soenneker.Extensions.HttpResponseMessage" Version="11.0.2655" />
+        <PackageReference Include="Soenneker.Extensions.Object" Version="11.0.4441" />
     </ItemGroup>
 </Project>
