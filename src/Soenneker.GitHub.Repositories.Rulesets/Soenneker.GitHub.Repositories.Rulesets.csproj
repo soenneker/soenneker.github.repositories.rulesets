@@ -56,6 +56,6 @@
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
         <PackageReference Include="Soenneker.Extensions.HttpResponseMessage" Version="11.0.2678" />
-        <PackageReference Include="Soenneker.Extensions.Object" Version="11.0.4455" />
+        <PackageReference Include="Soenneker.Extensions.Object" Version="11.0.4456" />
     </ItemGroup>
 </Project>
